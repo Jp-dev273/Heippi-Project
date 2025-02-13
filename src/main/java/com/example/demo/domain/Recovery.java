@@ -12,8 +12,8 @@ public class Recovery {
     private String id;
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
     private String token;
     @Temporal(TemporalType.DATE)
     private Date expiration;

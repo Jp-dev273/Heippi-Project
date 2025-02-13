@@ -9,14 +9,14 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Data
-public class PacienteDTO implements Serializable {
+public class PatientDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @NotBlank
     private String id;
     @NotBlank
-    private String nombre;
-    private String direccion;
+    private String name;
+    private String address;
     @DateTimeFormat
-    private Date fechaNacimiento;
+    private Date birthDate;
 }

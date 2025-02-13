@@ -7,14 +7,14 @@ import java.sql.Date;
 
 @Data
 @Entity
-public class Paciente {
+public class Patient {
     @Id
     private String id;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapsId
-    private Usuario usuario;
-    private String nombre;
-    private String direccion;
+    private User user;
+    private String name;
+    private String address;
     @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
+    private Date birthDate;
 }

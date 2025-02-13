@@ -1,1 +1,1 @@
-insert into usuario values ('0', 'HOSPITAL', 'email@email.com', '$2a$10$HKsIdtoHehABf.0CoDMHYuePpWduEWi5eV.2bTPKJc6s9/0mPhQ7O', 'telefono', true, null);
+insert into users values ('0', true, null, 'HOSPITAL', 'email@email.com', '$2a$10$HKsIdtoHehABf.0CoDMHYuePpWduEWi5eV.2bTPKJc6s9/0mPhQ7O', 'telefono');

@@ -10,10 +10,10 @@ public class HospitalDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String id;
-    @NotBlank(message = "nombre is mandatory")
-    private String nombre;
-    private String direccion;
-    @NotBlank(message = "serviciosMedicos is mandatory")
-    private String serviciosMedicos;
+    @NotBlank(message = "name is mandatory")
+    private String name;
+    private String address;
+    @NotBlank(message = "medicalServices is mandatory")
+    private String medicalServices;
 
 }
