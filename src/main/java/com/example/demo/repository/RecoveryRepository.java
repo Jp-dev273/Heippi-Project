@@ -4,5 +4,5 @@ import com.example.demo.domain.Recovery;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecoveryRepository extends JpaRepository<Recovery,String> {
-    Recovery findRecoveryByToken(String token);
+    Recovery findByToken(String token);
 }

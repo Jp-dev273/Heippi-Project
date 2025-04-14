@@ -2,11 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.dto.HospitalDTO;
 import com.example.demo.domain.Hospital;
-import com.example.demo.domain.Usuario;
+import com.example.demo.domain.User;
 import com.example.demo.repository.HospitalRepository;
-import com.example.demo.repository.UsuariosRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.samples.HospitalsSamples;
-import com.example.demo.samples.UsuariosSamples;
+import com.example.demo.samples.UserSamples;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,15 @@ public class HospitalControllerIT {
     @Autowired
     private HospitalController hospitalController;
     @Autowired
-    private UsuariosRepository usuariosRepository;
+    private UserRepository userRepository;
     @Autowired
     private HospitalRepository hospitalRepository;
 
     @Test
     @DisplayName("Should create an Hospital and return OK")
     void createHospital() {
-        Usuario usuario = new UsuariosSamples().usuarioTest1();
-        usuariosRepository.save(usuario);
+        User user = new UserSamples().userTest1();
+        userRepository.save(user);
 
         HospitalDTO hospitalDTO = new HospitalsSamples().hospitalDTOTest1();
 
@@ -44,13 +44,13 @@ public class HospitalControllerIT {
         Hospital hospital = hospitalRepository.findById(hospitalDTO.getId()).orElse(null);
         assertNotNull(hospital);
         assertEquals(hospitalDTO.getId(), hospital.getId());
-        assertEquals(hospitalDTO.getNombre(), hospital.getNombre());
-        assertEquals(hospitalDTO.getDireccion(), hospital.getDireccion());
-        assertEquals(hospitalDTO.getServiciosMedicos(), hospital.getServiciosMedicos());
+        assertEquals(hospitalDTO.getName(), hospital.getName());
+        assertEquals(hospitalDTO.getAddress(), hospital.getAddress());
+        assertEquals(hospitalDTO.getMedicalServices(), hospital.getMedicalServices());
     }
 
     @Test
-    @DisplayName("Should get all Usuarios and return OK")
+    @DisplayName("Should get all Users and return OK")
     void getAllHospitals() {
         Hospital hospital1 = new HospitalsSamples().hospitalTest1();
         Hospital hospital2 = new HospitalsSamples().hospitalTest2();

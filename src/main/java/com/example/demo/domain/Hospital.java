@@ -13,10 +13,10 @@ public class Hospital {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "id_hospital")
-    private Usuario usuario;
-    private String nombre;
-    private String direccion;
-    private String serviciosMedicos;
+    private User user;
+    private String name;
+    private String address;
+    private String medicalServices;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital")
-    private List<Medico> medicos;
+    private List<Physician> physicians;
 }

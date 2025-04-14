@@ -5,14 +5,14 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Medico {
+public class Physician {
     @Id
     private String id;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapsId
-    private Usuario usuario;
-    private String nombre;
-    private String direccion;
+    private User user;
+    private String name;
+    private String address;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hospital")
     private Hospital hospital;

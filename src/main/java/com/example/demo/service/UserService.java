@@ -1,13 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.controller.dto.EmailUsuarioDTO;
+import com.example.demo.controller.dto.EmailUserDTO;
 import com.example.demo.controller.dto.RecoveryDTO;
-import com.example.demo.controller.dto.UsuarioDTO;
-import com.example.demo.controller.mapper.UsuarioMapper;
+import com.example.demo.controller.dto.UserDTO;
+import com.example.demo.controller.mapper.UserMapper;
 import com.example.demo.domain.Recovery;
-import com.example.demo.domain.Usuario;
+import com.example.demo.domain.User;
 import com.example.demo.repository.RecoveryRepository;
-import com.example.demo.repository.UsuariosRepository;
+import com.example.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,30 +24,30 @@ import java.util.UUID;
 
 @Service
 @Transactional
-public class UsuarioService {
-    private final UsuariosRepository usuariosRepository;
+public class UserService {
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RecoveryRepository recoveryRepository;
     private final EmailService emailService;
-    private final UsuarioMapper usuarioMapper;
+    private final UserMapper userMapper;
     private final Environment environment;
 
-    public UsuarioService(
-            UsuariosRepository usuariosRepository,
+    public UserService(
+            UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             RecoveryRepository recoveryRepository,
             EmailService emailService,
-            UsuarioMapper usuarioMapper, Environment environment) {
-        this.usuariosRepository = usuariosRepository;
+            UserMapper userMapper, Environment environment) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.recoveryRepository = recoveryRepository;
         this.emailService = emailService;
-        this.usuarioMapper = usuarioMapper;
+        this.userMapper = userMapper;
         this.environment = environment;
     }
-    public void crearUsuario(UsuarioDTO usuarioDTO) {
-        Usuario newUsuario = usuarioMapper.UsuarioDTOtoUsuario(usuarioDTO);
-        newUsuario.setActivationKey(UUID.randomUUID().toString());
+    public void crearUsuario(UserDTO userDTO) {
+        User newUser = userMapper.userDTOtoUser(userDTO);
+        newUser.setActivationKey(UUID.randomUUID().toString());
         String host = "localhost";
         try{
             host = InetAddress.getLocalHost().getHostAddress();
@@ -57,18 +57,18 @@ public class UsuarioService {
 
         String text = "Hey, before you start, remember activate your account with the next link: "
                 + host + ":" + environment.getProperty("server.port")  + "/usuarios/?key="
-                + newUsuario.getActivationKey();
-        emailService.sendSimpleMessage("DevelopApp@gmail.com", usuarioDTO.getEmail(), "New Account registered", text);
-        usuariosRepository.save(newUsuario);
+                + newUser.getActivationKey();
+        emailService.sendSimpleMessage("DevelopApp@gmail.com", userDTO.getEmail(), "New Account registered", text);
+        userRepository.save(newUser);
     }
 
-    public List<UsuarioDTO> findAllUsers() {
-        return usuarioMapper.usuariosToUsuarioDTOs(usuariosRepository.findAll());
+    public List<UserDTO> findAllUsers() {
+        return userMapper.usersToUsersDTOs(userRepository.findAll());
     }
 
-    public void requestPasswordReset(EmailUsuarioDTO emailUsuarioDTO) {
-        String email = emailUsuarioDTO.getEmail();
-        Optional<Usuario> usuario = Optional.ofNullable(usuariosRepository.findUsuarioByEmail(email));
+    public void requestPasswordReset(EmailUserDTO emailUserDTO) {
+        String email = emailUserDTO.getEmail();
+        Optional<User> usuario = Optional.ofNullable(userRepository.findByEmail(email));
 
         if(usuario.isEmpty()) {
             throw new RuntimeException("Usuario no encontrado");
@@ -77,7 +77,7 @@ public class UsuarioService {
         String token = UUID.randomUUID().toString();
         Recovery passwordResetToken = new Recovery();
 
-        passwordResetToken.setUsuario(usuario.get());
+        passwordResetToken.setUser(usuario.get());
         passwordResetToken.setToken(token);
         passwordResetToken.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24));
         recoveryRepository.save(passwordResetToken);
@@ -90,7 +90,7 @@ public class UsuarioService {
 
     public void resetPassword(RecoveryDTO recoveryDTO) {
 
-        Optional<Recovery> optionalRecovery = Optional.ofNullable(recoveryRepository.findRecoveryByToken(recoveryDTO.getToken()));
+        Optional<Recovery> optionalRecovery = Optional.ofNullable(recoveryRepository.findByToken(recoveryDTO.getToken()));
         if(optionalRecovery.isEmpty()) {
             throw new RuntimeException("Recovery token no encontrado");
         }
@@ -101,20 +101,20 @@ public class UsuarioService {
             throw new RuntimeException("Recovery token expired");
         }
 
-        Usuario usuario = recoveryToken.getUsuario();
-        usuario.setPassword(passwordEncoder.encode(recoveryDTO.getPassword()));
-        usuariosRepository.save(usuario);
+        User user = recoveryToken.getUser();
+        user.setPassword(passwordEncoder.encode(recoveryDTO.getPassword()));
+        userRepository.save(user);
         recoveryRepository.delete(recoveryToken);
     }
 
     public void activateUsuario(String key) {
-        Optional<Usuario> usuario = Optional.ofNullable(usuariosRepository.findByActivationKey(key));
+        Optional<User> usuario = Optional.ofNullable(userRepository.findByActivationKey(key));
         if(usuario.isEmpty()) {
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
-        Usuario newUsuario = usuario.get();
-        newUsuario.setActivado(true);
-        newUsuario.setActivationKey(null);
-        usuariosRepository.save(newUsuario);
+        User newUser = usuario.get();
+        newUser.setActivated(true);
+        newUser.setActivationKey(null);
+        userRepository.save(newUser);
     }
 }

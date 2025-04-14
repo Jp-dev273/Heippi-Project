@@ -10,14 +10,14 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-public class UsuarioDTO implements Serializable {
+public class UserDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String id;
     @Email
     @NotBlank(message = "email is mandatory")
     private String email;
-    private String telefono;
+    private String telephone;
     @NotBlank(message = "password is mandatory")
     private String password;
     @NotNull

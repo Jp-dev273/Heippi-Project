@@ -12,22 +12,22 @@ public class HospitalMapper {
     public Hospital hospitalDTOtoHospital(HospitalDTO hospitalDTO) {
         Hospital hospital = new Hospital();
         hospital.setId(hospitalDTO.getId());
-        hospital.setNombre(hospitalDTO.getNombre());
-        hospital.setDireccion(hospitalDTO.getDireccion());
-        hospital.setServiciosMedicos(hospitalDTO.getServiciosMedicos());
+        hospital.setName(hospitalDTO.getName());
+        hospital.setAddress(hospitalDTO.getAddress());
+        hospital.setMedicalServices(hospitalDTO.getMedicalServices());
         return hospital;
     }
 
     public HospitalDTO hospitalToHospitalDTO(Hospital hospital) {
         HospitalDTO hospitalDTO = new HospitalDTO();
         hospitalDTO.setId(hospital.getId());
-        hospitalDTO.setNombre(hospital.getNombre());
-        hospitalDTO.setDireccion(hospital.getDireccion());
-        hospitalDTO.setServiciosMedicos(hospital.getServiciosMedicos());
+        hospitalDTO.setName(hospital.getName());
+        hospitalDTO.setAddress(hospital.getAddress());
+        hospitalDTO.setMedicalServices(hospital.getMedicalServices());
         return hospitalDTO;
     }
 
-    public List<HospitalDTO> hospitalesToHospitalesDTO(Iterable<Hospital> all) {
+    public List<HospitalDTO> hospitalsToHospitalsDTO(Iterable<Hospital> all) {
         List<HospitalDTO> hospitalDTOS = new ArrayList<>();
         for (Hospital hospital : all) {
             hospitalDTOS.add(hospitalToHospitalDTO(hospital));

@@ -1,8 +1,8 @@
 package com.example.demo.samples;
 
-import com.example.demo.controller.dto.MedicoDTO;
-import com.example.demo.domain.Medico;
-import com.example.demo.domain.Usuario;
+import com.example.demo.controller.dto.PhysicianDTO;
+import com.example.demo.domain.Physician;
+import com.example.demo.domain.User;
 
 public class MedicosSamples {
     private final
@@ -12,41 +12,41 @@ public class MedicosSamples {
         nombre2 = "medico2",
         direccion2 = "direccion2";
 
-    public Medico medicoTest1(){
-        Usuario usuarioTest1 = new UsuariosSamples().usuarioTest1();
-        Medico medico = new Medico();
-        medico.setId(usuarioTest1.getIdentificacion());
-        medico.setNombre(nombre1);
-        medico.setDireccion(direccion1);
-        medico.setUsuario(usuarioTest1);
-        return medico;
+    public Physician medicoTest1(){
+        User userTest1 = new UserSamples().userTest1();
+        Physician physician = new Physician();
+        physician.setId(userTest1.getId());
+        physician.setName(nombre1);
+        physician.setAddress(direccion1);
+        physician.setUser(userTest1);
+        return physician;
     }
 
-    public Medico medicoTest2(){
-        Usuario usuarioTest2 = new UsuariosSamples().usuarioTest2();
-        Medico medico = new Medico();
-        medico.setId(usuarioTest2.getIdentificacion());
-        medico.setNombre(nombre2);
-        medico.setDireccion(direccion2);
-        medico.setUsuario(usuarioTest2);
-        return medico;
+    public Physician medicoTest2(){
+        User userTest2 = new UserSamples().userTest2();
+        Physician physician = new Physician();
+        physician.setId(userTest2.getId());
+        physician.setName(nombre2);
+        physician.setAddress(direccion2);
+        physician.setUser(userTest2);
+        return physician;
     }
 
-    public MedicoDTO medicoDTOTest1(){
-        MedicoDTO medicoDTO = new MedicoDTO();
-        medicoDTO.setId(new UsuariosSamples().usuarioTest1().getIdentificacion());
-        medicoDTO.setNombre(nombre1);
-        medicoDTO.setDireccion(direccion1);
-        medicoDTO.setNewPassword("123456");
-        return medicoDTO;
+    public PhysicianDTO medicoDTOTest1(){
+        PhysicianDTO physicianDTO = new PhysicianDTO();
+        physicianDTO.setId(new UserSamples().userTest1().getId());
+        physicianDTO.setName(nombre1);
+        physicianDTO.setAddress(direccion1);
+        physicianDTO.setNewPassword("123456");
+        return physicianDTO;
     }
 
-    public MedicoDTO medicoDTOTest2(){
-        MedicoDTO medicoDTO = new MedicoDTO();
-        medicoDTO.setId(new UsuariosSamples().usuarioTest2().getIdentificacion());
-        medicoDTO.setNombre(nombre2);
-        medicoDTO.setDireccion(direccion2);
-        medicoDTO.setNewPassword("1234567");
-        return medicoDTO;
+    public PhysicianDTO medicoDTOTest2(){
+        PhysicianDTO physicianDTO = new PhysicianDTO();
+        physicianDTO.setId(new UserSamples().userTest2().getId());
+        physicianDTO.setName(nombre2);
+        physicianDTO.setAddress(direccion2);
+        physicianDTO.setNewPassword("1234567");
+        return physicianDTO;
     }
 }

@@ -8,7 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-public class EmailUsuarioDTO implements Serializable {
+public class EmailUserDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @Email

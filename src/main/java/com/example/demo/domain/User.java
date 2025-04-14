@@ -4,17 +4,17 @@ import com.example.demo.config.Authorities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
+@Entity(name = "users")
 @Data
-public class Usuario {
+public class User {
     @Id
-    private String identificacion;
+    private String id;
     @Column(unique=true)
     private String email;
-    private String telefono;
+    private String telephone;
     private String password;
     @Enumerated(EnumType.STRING)
     private Authorities authority;
-    private boolean activado;
+    private boolean activated;
     private String activationKey;
 }
